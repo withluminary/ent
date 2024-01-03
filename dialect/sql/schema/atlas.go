@@ -38,6 +38,7 @@ type Atlas struct {
 	universalID     bool   // global unique ids
 	dropColumns     bool   // drop deleted columns
 	dropIndexes     bool   // drop deleted indexes
+	dropTables      bool   // drop deleted tables
 	withForeignKeys bool   // with foreign keys
 	mode            Mode
 	hooks           []Hook              // hooks to apply before creation
@@ -601,6 +602,9 @@ func (a *Atlas) init() error {
 	}
 	if a.dropColumns {
 		skip &= ^DropColumn
+	}
+	if a.dropTables {
+		skip &= ^DropTable
 	}
 	if skip != NoChange {
 		a.diffHooks = append(a.diffHooks, filterChanges(skip))

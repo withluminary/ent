@@ -65,6 +65,14 @@ func WithDropColumn(b bool) MigrateOption {
 	}
 }
 
+// WithDropTable sets the tables dropping option to the migration.
+// Defaults to false.
+func WithDropTable(b bool) MigrateOption {
+	return func(a *Atlas) {
+		a.dropTables = b
+	}
+}
+
 // WithDropIndex sets the indexes dropping option to the migration.
 // Defaults to false.
 func WithDropIndex(b bool) MigrateOption {
